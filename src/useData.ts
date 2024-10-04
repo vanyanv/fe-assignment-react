@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Response } from "./types";
 
 const domain = "http://localhost:3000";
@@ -19,7 +19,13 @@ const useData = () => {
     }
   };
 
-  fetchData();
+  
+  // useEffect is used to trigger the fetchData function when the component mounts.
+  // The empty dependency array ([]) ensures that fetchData is only called once,
+  // preventing multiple fetches and unnecessary re-renders.
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return data;
 };

@@ -9,6 +9,7 @@ type ChartProps = {
 };
 
 const Chart = ({ data }: ChartProps) => {
+  console.log("rerendering Chart");
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     [],

@@ -6,6 +6,7 @@ import "./App.css";
 const App = () => {
   const data = useData();
 
+  console.log("Rerendering Home Page");
   return (
     <div className="container">
       <div>
