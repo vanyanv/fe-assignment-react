@@ -25,18 +25,18 @@ const mockData: Response = [
 
 describe("Chart", () => {
   it("renders a chart", () => {
-    render(<Chart data={mockData} loading={false} />);
+    render(<Chart data={mockData} loading={false} selected="downloads" />);
     expect(screen.getByText("Downloads")).toBeInTheDocument();
   });
 
   it("renders the title and subtitle", () => {
-    render(<Chart data={mockData} loading={false} />);
+    render(<Chart data={mockData} loading={false} selected="downloads" />);
     expect(screen.getByText("Downloads by App")).toBeInTheDocument();
     expect(screen.getByText("TODO")).toBeInTheDocument();
   });
 
   it("does not render a chart if data is empty", () => {
-    render(<Chart data={[]} loading={false} />);
+    render(<Chart data={[]} loading={false} selected="downloads" />);
     expect(screen.queryByText("Downloads")).not.toBeInTheDocument();
   });
 });

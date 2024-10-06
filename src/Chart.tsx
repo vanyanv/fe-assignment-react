@@ -7,20 +7,25 @@ import { dayjsUtc } from "./dayjs";
 type ChartProps = {
   data: Response;
   loading: boolean;
+  selected: string;
 };
 
-const Chart = ({ data, loading }: ChartProps) => {
+const Chart = ({ data, loading, selected }: ChartProps) => {
+  //Capitalizing the first letter of our Title
+  const title = selected.charAt(0).toUpperCase() + selected.slice(1);
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     [],
   );
 
   useEffect(() => {
-    const newSeriesData: Highcharts.SeriesOptionsType[] = data.map((series) => {
+    const newSeriesData: Highcharts.SeriesLineOptions[] = data.map((series) => {
       return {
         name: series.name,
         type: "line",
-        data: series.data.map(([date, value]) => {
+        data: series.data.map(([date, downloads, revenue]) => {
+          //variable that selects between downloads or revenue data points based on selection
+          const value = selected === "downloads" ? downloads : revenue;
           const dateMs = dayjsUtc(date).valueOf(); // convert date string to unix milliseconds
           const yValue = value as number;
           return {
@@ -28,10 +33,10 @@ const Chart = ({ data, loading }: ChartProps) => {
             y: yValue,
           };
         }),
-      };
+      } as Highcharts.SeriesLineOptions;
     });
     setSeriesData(newSeriesData);
-  }, [data]);
+  }, [data, selected]);
 
   if (!seriesData.length) {
     return null;
@@ -39,14 +44,14 @@ const Chart = ({ data, loading }: ChartProps) => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Downloads by App",
+      text: `${title} by App`,
     },
     subtitle: {
       text: "TODO",
     },
     yAxis: {
       title: {
-        text: "Downloads",
+        text: `${title}`,
       },
     },
     xAxis: {

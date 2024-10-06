@@ -10,7 +10,6 @@ const buttonStyle = {
   color: "black", // black text
   border: "1px solid black", // border
   borderRadius: "0px", // makes border square
-
   "&:hover": {
     backgroundColor: "#9CBFD2", // hover effect for active button
   },
@@ -55,7 +54,7 @@ const App = () => {
           Revenue
         </Button>
       </div>
-      <Chart data={data} loading={loading} />
+      <Chart data={data} loading={loading} selected={selected} />
       <Table data={data} loading={loading} />
     </div>
   );

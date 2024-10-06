@@ -57,20 +57,20 @@ Here are the tasks you should complete:
 
 - [x] Add Downloads and Revenue buttons (aka "measures")
   - [x] They should be roughly formatted according to the screenshots
-  - [] The selected button should have a light blue background
+  - [x] The selected button should have a light blue background
 
 ### Chart
 
-- [ ] The title should say...
-  - [ ] "Downloads by App" when the downloads button is selected
-  - [ ] "Revenue by App" when the revenue button is selected
-- [ ] The chart should show revenue data when the Revenue button is selected
+- [x] The title should say...
+  - [x] "Downloads by App" when the downloads button is selected
+  - [x] "Revenue by App" when the revenue button is selected
+- [x] The chart should show revenue data when the Revenue button is selected
 - [ ] The chart should only plot points within (and including) the start and end date inputs
   - [ ] It should automatically update when the start or end date inputs change
 - [ ] The chart subtitle should have the date range:
   - e.g. "Jan 01, 2020 - Jan 07, 2020"
   - [ ] It should automatically update when the start or end date inputs change
-- [ ] The chart's Y Axis should say "Downloads" or "Revenue ($)" depending on the selected measures
+- [x] The chart's Y Axis should say "Downloads" or "Revenue ($)" depending on the selected measures
 - [ ] The chart's X Axis should have formatted dates:
   - e.g. "Jan 01, 20'", "Jan 07, 20'", etc
 
