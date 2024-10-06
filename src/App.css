@@ -1,3 +1,13 @@
 .container {
   margin: 25px;
 }
+
+.buttons-container {
+  display: flex;
+
+  gap: 5px;
+}
+
+buttons {
+  color: gray;
+}
