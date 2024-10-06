@@ -16,18 +16,14 @@ const buttonStyle = {
 };
 
 const App = () => {
-  const [selected, setSelected] = useState("downloads");
   const { data, loading } = useData();
+  const [selected, setSelected] = useState("downloads");
 
   return (
     <div className="container">
       <div>
-        <p>
-          Start Date: <input value="2020-01-01" />
-        </p>
-        <p>
-          End Date: <input value="2020-01-07" />
-        </p>
+        <p>Start Date: </p>
+        <p>End Date: </p>
       </div>
       <div className="buttons-container">
         <Button

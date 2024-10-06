@@ -71,7 +71,7 @@ Here are the tasks you should complete:
   - e.g. "Jan 01, 2020 - Jan 07, 2020"
   - [ ] It should automatically update when the start or end date inputs change
 - [x] The chart's Y Axis should say "Downloads" or "Revenue ($)" depending on the selected measures
-- [ ] The chart's X Axis should have formatted dates:
+- [x] The chart's X Axis should have formatted dates:
   - e.g. "Jan 01, 20'", "Jan 07, 20'", etc
 
 ### Table

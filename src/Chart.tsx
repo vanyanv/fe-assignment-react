@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import type { Response } from "./types";
-import { dayjsUtc } from "./dayjs";
+import formatDate, { dayjsUtc } from "./dayjs";
 
 type ChartProps = {
   data: Response;
@@ -56,6 +56,11 @@ const Chart = ({ data, loading, selected }: ChartProps) => {
     },
     xAxis: {
       type: "datetime",
+      labels: {
+        formatter: function () {
+          return formatDate(this.value as string); // `this.value` is the timestamp in milliseconds
+        },
+      },
     },
     legend: {
       layout: "vertical",
