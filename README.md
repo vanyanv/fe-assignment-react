@@ -55,9 +55,9 @@ Here are the tasks you should complete:
 
 ### Controls
 
-- [ ] Add Downloads and Revenue buttons (aka "measures")
-  - [ ] They should be roughly formatted according to the screenshots
-  - [ ] The selected button should have a light blue background
+- [x] Add Downloads and Revenue buttons (aka "measures")
+  - [x] They should be roughly formatted according to the screenshots
+  - [] The selected button should have a light blue background
 
 ### Chart
 
