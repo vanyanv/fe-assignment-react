@@ -6,10 +6,10 @@ import { dayjsUtc } from "./dayjs";
 
 type ChartProps = {
   data: Response;
+  loading: boolean;
 };
 
-const Chart = ({ data }: ChartProps) => {
-  console.log("rerendering Chart");
+const Chart = ({ data, loading }: ChartProps) => {
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     [],

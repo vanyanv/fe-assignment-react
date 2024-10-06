@@ -25,14 +25,14 @@ const mockData: Response = [
 
 describe("Table", () => {
   it("renders a table", () => {
-    render(<Table data={mockData} />);
+    render(<Table data={mockData} loading={false} />);
 
     expect(screen.getByText("App Name")).toBeInTheDocument();
     expect(screen.getByText("Downloads")).toBeInTheDocument();
   });
 
   it("does not render a table if data is empty", () => {
-    render(<Table data={[]} />);
+    render(<Table data={[]} loading={false} />);
 
     expect(screen.queryByText("App Name")).not.toBeInTheDocument();
     expect(screen.queryByText("Downloads")).not.toBeInTheDocument();

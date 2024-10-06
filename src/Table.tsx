@@ -1,8 +1,10 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Skeleton } from "@mui/material";
 import type { Response } from "./types";
 
 type TableProps = {
   data: Response;
+  loading: boolean;
 };
 
 type RowProps = {
@@ -11,9 +13,17 @@ type RowProps = {
   downloads: number;
 };
 
-const Table = ({ data }: TableProps) => {
+const Table = ({ data, loading }: TableProps) => {
   if (!data.length) {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <div style={{ height: 400, width: "100%" }}>
+        <Skeleton variant="rectangular" width="100%" height={400} />
+      </div>
+    );
   }
 
   const columns: GridColDef<RowProps>[] = [

@@ -4,9 +4,8 @@ import useData from "./useData";
 import "./App.css";
 
 const App = () => {
-  const data = useData();
+  const { data, loading } = useData();
 
-  console.log("Rerendering Home Page");
   return (
     <div className="container">
       <div>
@@ -17,8 +16,8 @@ const App = () => {
           End Date: <input value="2020-01-07" />
         </p>
       </div>
-      <Chart data={data} />
-      <Table data={data} />
+      <Chart data={data} loading={loading} />
+      <Table data={data} loading={loading} />
     </div>
   );
 };
