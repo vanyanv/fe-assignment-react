@@ -1,16 +1,30 @@
-import React from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 
-export default function DatePickerComponent() {
+type DatePickerComponentProps = {
+  givenDate: string;
+  updateTime: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function DatePickerComponent({
+  givenDate,
+  updateTime,
+}: DatePickerComponentProps) {
+  const dateValue = dayjs(givenDate); // Convert the givenDate to a dayjs object
+
+  console.log(dateValue);
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
-          defaultValue={dayjs("2020-01-01")}
+          value={dateValue}
+          onChange={(newDate) => {
+            if (newDate) {
+              updateTime(newDate.format("YYYY-MM-DD"));
+            }
+          }}
           slotProps={{
             textField: {
               sx: {
