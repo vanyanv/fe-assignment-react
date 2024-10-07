@@ -4,6 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import type { Response } from "./types";
 import { dayjsUtc } from "./dayjs";
 import { Dayjs } from "dayjs";
+import SkeletonLoader from "./SkeletonLoader";
 
 type ChartProps = {
   data: Response;
@@ -52,7 +53,7 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
   }, [data, selected, startDate, endDate]); // Re-run the effect when dependencies change
 
   if (loading) {
-    return <div>Loading...</div>; // Add a loading indicator
+    return <SkeletonLoader />; // Add a loading indicator
   }
 
   if (!seriesData.length) {
