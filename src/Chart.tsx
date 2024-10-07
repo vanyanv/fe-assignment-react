@@ -14,47 +14,45 @@ type ChartProps = {
 };
 
 const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
-  //Capitalizing the first letter of our Title
+  // Capitalizing the first letter of our Title
   const title = selected.charAt(0).toUpperCase() + selected.slice(1);
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     [],
   );
 
-  // Format startDate and endDate using dayjs
-  const formattedStartDate = dayjsUtc(startDate).format("MMM DD, YYYY");
-  const formattedEndDate = dayjsUtc(endDate).format("MMM DD, YYYY");
-
   useEffect(() => {
+    // Convert startDate and endDate to UTC milliseconds
     const startMs = dayjsUtc(startDate).startOf("day").valueOf();
     const endMs = dayjsUtc(endDate).endOf("day").valueOf();
 
+    // Filter and process the data based on startDate and endDate
     const newSeriesData: Highcharts.SeriesLineOptions[] = data.map((series) => {
-      const filteredData = series.data.filter(([date]) => {
-        const dateMs = dayjsUtc(date).valueOf();
-        return dateMs >= startMs && dateMs <= endMs; // Filter points within date range
-      });
-
       return {
         name: series.name,
         type: "line",
-        data: filteredData.map(([date, downloads, revenue]) => {
-          //variable that selects between downloads or revenue data points based on selection
-          const value = selected === "downloads" ? downloads : revenue;
-          const dateMs = dayjsUtc(date).valueOf(); // convert date string to unix milliseconds
-          const yValue = value as number;
-          return {
-            x: dateMs,
-            y: yValue,
-          };
-        }),
+        data: series.data
+          .filter(([date]) => {
+            const dateMs = dayjsUtc(date).valueOf();
+            return dateMs >= startMs && dateMs <= endMs; // Filter points within date range
+          })
+          .map(([date, downloads, revenue]) => {
+            // Select between downloads or revenue data points based on selection
+            const value = selected === "downloads" ? downloads : revenue;
+            const dateMs = dayjsUtc(date).valueOf(); // Convert date string to unix milliseconds
+            return {
+              x: dateMs,
+              y: value as number,
+            };
+          }),
       } as Highcharts.SeriesLineOptions;
     });
+
     setSeriesData(newSeriesData);
-  }, [data, selected, startDate, endDate]);
+  }, [data, selected, startDate, endDate]); // Re-run the effect when dependencies change
 
   if (!seriesData.length) {
-    return null;
+    return null; // If no data, don't render the chart
   }
 
   const options: Highcharts.Options = {
@@ -62,7 +60,7 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
       text: `${title} by App`,
     },
     subtitle: {
-      text: `${formattedStartDate} - ${formattedEndDate}`,
+      text: `${dayjsUtc(startDate).format("MMM DD, YYYY")} - ${dayjsUtc(endDate).format("MMM DD, YYYY")}`, // Format the subtitle with start and end dates
     },
     yAxis: {
       title: {
@@ -73,7 +71,8 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
       type: "datetime",
       labels: {
         formatter: function () {
-          return formatDate(this.value as string); // `this.value` is the timestamp in milliseconds
+          const date = dayjsUtc(this.value).format("MMM DD, YY'"); // Format date as "Jan 01, 20'"
+          return date;
         },
       },
     },

@@ -65,8 +65,8 @@ Here are the tasks you should complete:
   - [x] "Downloads by App" when the downloads button is selected
   - [x] "Revenue by App" when the revenue button is selected
 - [x] The chart should show revenue data when the Revenue button is selected
-- [ ] The chart should only plot points within (and including) the start and end date inputs
-  - [ ] It should automatically update when the start or end date inputs change
+- [x] The chart should only plot points within (and including) the start and end date inputs
+  - [x] It should automatically update when the start or end date inputs change
 - [x] The chart subtitle should have the date range:
   - e.g. "Jan 01, 2020 - Jan 07, 2020"
   - [x] It should automatically update when the start or end date inputs change
