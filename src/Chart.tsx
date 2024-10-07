@@ -3,20 +3,27 @@ import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import type { Response } from "./types";
 import formatDate, { dayjsUtc } from "./dayjs";
+import { Dayjs } from "dayjs";
 
 type ChartProps = {
   data: Response;
   loading: boolean;
   selected: string;
+  startDate: Dayjs | string;
+  endDate: Dayjs | string;
 };
 
-const Chart = ({ data, loading, selected }: ChartProps) => {
+const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
   //Capitalizing the first letter of our Title
   const title = selected.charAt(0).toUpperCase() + selected.slice(1);
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     [],
   );
+
+  // Format startDate and endDate using dayjs
+  const formattedStartDate = dayjsUtc(startDate).format("MMM DD, YYYY");
+  const formattedEndDate = dayjsUtc(endDate).format("MMM DD, YYYY");
 
   useEffect(() => {
     const newSeriesData: Highcharts.SeriesLineOptions[] = data.map((series) => {
@@ -47,7 +54,7 @@ const Chart = ({ data, loading, selected }: ChartProps) => {
       text: `${title} by App`,
     },
     subtitle: {
-      text: "TODO",
+      text: `${formattedStartDate} - ${formattedEndDate}`,
     },
     yAxis: {
       title: {

@@ -67,7 +67,7 @@ Here are the tasks you should complete:
 - [x] The chart should show revenue data when the Revenue button is selected
 - [ ] The chart should only plot points within (and including) the start and end date inputs
   - [ ] It should automatically update when the start or end date inputs change
-- [ ] The chart subtitle should have the date range:
+- [x] The chart subtitle should have the date range:
   - e.g. "Jan 01, 2020 - Jan 07, 2020"
   - [ ] It should automatically update when the start or end date inputs change
 - [x] The chart's Y Axis should say "Downloads" or "Revenue ($)" depending on the selected measures

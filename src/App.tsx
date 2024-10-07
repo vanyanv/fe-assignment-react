@@ -30,7 +30,8 @@ const App = () => {
   const [startDate, setStartDate] = useState(startingDate);
   const [endDate, setEndDate] = useState(endingDate);
 
-  console.log(startDate, endDate);
+  console.log("startDate:", startDate);
+  console.log("endDate:", endDate);
   // Update state once data is available
   useEffect(() => {
     if (data?.length > 0) {
@@ -83,7 +84,13 @@ const App = () => {
           Revenue
         </Button>
       </div>
-      <Chart data={data} loading={loading} selected={selected} />
+      <Chart
+        data={data}
+        loading={loading}
+        selected={selected}
+        startDate={startDate}
+        endDate={endDate}
+      />
       <Table data={data} loading={loading} />
     </div>
   );
