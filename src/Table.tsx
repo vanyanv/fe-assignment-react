@@ -1,7 +1,7 @@
 import { DataGrid, GridColDef, GridColumnHeaderParams } from "@mui/x-data-grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 import type { Response } from "./types";
+import { formatRevenue } from "./utility";
 import "./App.css";
 
 type TableProps = {
@@ -12,25 +12,9 @@ type TableProps = {
 type RowProps = {
   id: number;
   appName: string;
-  downloads: string | number;
+  downloads: number;
   revenue: number;
   rpd: number;
-};
-
-const theme = createTheme({
-  components: {
-    MuiDataGrid: {
-      styleOverrides: {
-        columnHeaders: {
-          fontWeight: "bold", // Apply bold to all headers
-        },
-      },
-    },
-  },
-});
-
-const formatNumberWithCommas = (num: number) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 const Table = ({ data, loading }: TableProps) => {
@@ -58,6 +42,9 @@ const Table = ({ data, loading }: TableProps) => {
         <strong>{`${params.colDef.headerName}`}</strong>
       ),
       width: 150,
+      valueFormatter: (params) => {
+        return new Intl.NumberFormat("en-US").format(Number(params)); // Format downloads with commas
+      },
     },
     {
       field: "revenue",
@@ -65,6 +52,9 @@ const Table = ({ data, loading }: TableProps) => {
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{`${params.colDef.headerName}`}</strong>
       ),
+      valueFormatter: (params) => {
+        return formatRevenue(params); // Format revenue as currency
+      },
       width: 150,
     },
     {
@@ -80,11 +70,10 @@ const Table = ({ data, loading }: TableProps) => {
   const rows = data.map((appData) => {
     const totalDownloads = appData.data.reduce((a, b) => a + b[1], 0);
     const totalRevenue = appData.data.reduce((a, b) => a + b[2], 0);
-    console.log(totalDownloads);
     const row: RowProps = {
       id: appData.id,
       appName: appData.name,
-      downloads: formatNumberWithCommas(totalDownloads),
+      downloads: totalDownloads,
       revenue: totalRevenue,
       rpd: appData.data[0][1],
     };
@@ -92,11 +81,9 @@ const Table = ({ data, loading }: TableProps) => {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <div style={{ height: 400, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} />
-      </div>
-    </ThemeProvider>
+    <div style={{ height: 400, width: "100%" }}>
+      <DataGrid rows={rows} columns={columns} />
+    </div>
   );
 };
 

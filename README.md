@@ -82,7 +82,7 @@ Here are the tasks you should complete:
   - E.G. 80000 downloads should be "80,000"
 - [x] Add a column for Revenue
   - [x] The table header should say "Revenue"
-  - [ ] The revenue cells should have the revenue, formatted with a dollar sign and commas. EG: "$140,043.51"
+  - [x] The revenue cells should have the revenue, formatted with a dollar sign and commas. EG: "$140,043.51"
 - [x] Add a column for "Revenue per Download"
   - [ ] The table header should say "RPD"
   - [ ] The RPD cells should have the revenue divided by downloads. If the value is invalid, the cell should say "-".
