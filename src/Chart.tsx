@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import type { Response } from "./types";
-import formatDate, { dayjsUtc } from "./dayjs";
+import { dayjsUtc } from "./dayjs";
 import { Dayjs } from "dayjs";
 
 type ChartProps = {
@@ -50,6 +50,10 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
 
     setSeriesData(newSeriesData);
   }, [data, selected, startDate, endDate]); // Re-run the effect when dependencies change
+
+  if (loading) {
+    return <div>Loading...</div>; // Add a loading indicator
+  }
 
   if (!seriesData.length) {
     return null; // If no data, don't render the chart

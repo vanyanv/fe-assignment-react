@@ -6,7 +6,6 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./App.css";
 import DatePickerComponent from "./DatePickerComponent";
-import dayjs from "dayjs";
 
 const buttonStyle = {
   fontSize: "14px",

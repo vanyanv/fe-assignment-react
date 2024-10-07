@@ -1,6 +1,8 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Skeleton } from "@mui/material";
+import { DataGrid, GridColDef, GridColumnHeaderParams } from "@mui/x-data-grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import type {} from "@mui/x-data-grid/themeAugmentation";
 import type { Response } from "./types";
+import "./App.css";
 
 type TableProps = {
   data: Response;
@@ -11,24 +13,64 @@ type RowProps = {
   id: number;
   appName: string;
   downloads: number;
+  revenue: number;
+  rpd: number;
 };
 
+const theme = createTheme({
+  components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        columnHeaders: {
+          fontWeight: "bold", // Apply bold to all headers
+        },
+      },
+    },
+  },
+});
+
 const Table = ({ data, loading }: TableProps) => {
+  if (loading) {
+    return <div>Loading...</div>; // Add a loading indicator
+  }
+
   if (!data.length) {
     return null;
   }
 
-  if (loading) {
-    return (
-      <div style={{ height: 400, width: "100%" }}>
-        <Skeleton variant="rectangular" width="100%" height={400} />
-      </div>
-    );
-  }
-
-  const columns: GridColDef<RowProps>[] = [
-    { field: "appName", headerName: "App Name", width: 150 },
-    { field: "downloads", headerName: "Downloads", width: 150 },
+  const columns: GridColDef[] = [
+    {
+      field: "appName",
+      headerName: "App Name",
+      width: 150,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <strong>{`${params.colDef.headerName}`}</strong>
+      ),
+    },
+    {
+      field: "downloads",
+      headerName: "Downloads",
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <strong>{`${params.colDef.headerName}`}</strong>
+      ),
+      width: 150,
+    },
+    {
+      field: "revenue",
+      headerName: "Revenue",
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <strong>{`${params.colDef.headerName}`}</strong>
+      ),
+      width: 150,
+    },
+    {
+      field: "rpd",
+      headerName: "RPD",
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <strong>{`${params.colDef.headerName}`}</strong>
+      ),
+      width: 150,
+    },
   ];
 
   const rows = data.map((appData) => {
@@ -36,15 +78,19 @@ const Table = ({ data, loading }: TableProps) => {
     const row: RowProps = {
       id: appData.id,
       appName: appData.name,
-      downloads: totalDownloads,
+      downloads: appData.data[0][2],
+      revenue: appData.data[0][1],
+      rpd: appData.data[0][1],
     };
     return row;
   });
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid rows={rows} columns={columns} />
+      </div>
+    </ThemeProvider>
   );
 };
 
