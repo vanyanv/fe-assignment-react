@@ -25,14 +25,28 @@ const mockData: Response = [
 
 describe("Table", () => {
   it("renders a table", () => {
-    render(<Table data={mockData} loading={false} />);
+    render(
+      <Table
+        data={mockData}
+        loading={false}
+        startDate={"2023-01-01"}
+        endDate={"2023-01-02"}
+      />,
+    );
 
     expect(screen.getByText("App Name")).toBeInTheDocument();
     expect(screen.getByText("Downloads")).toBeInTheDocument();
   });
 
   it("does not render a table if data is empty", () => {
-    render(<Table data={[]} loading={false} />);
+    render(
+      <Table
+        data={[]}
+        loading={false}
+        startDate={"2023-01-01"}
+        endDate={"2023-01-02"}
+      />,
+    );
 
     expect(screen.queryByText("App Name")).not.toBeInTheDocument();
     expect(screen.queryByText("Downloads")).not.toBeInTheDocument();

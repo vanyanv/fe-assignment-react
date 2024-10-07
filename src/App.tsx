@@ -6,7 +6,6 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./App.css";
 import DatePickerComponent from "./DatePickerComponent";
-import dayjs from "dayjs";
 
 const buttonStyle = {
   fontSize: "14px",
@@ -30,8 +29,6 @@ const App = () => {
   const [startDate, setStartDate] = useState(startingDate);
   const [endDate, setEndDate] = useState(endingDate);
 
-  console.log("startDate:", startDate);
-  console.log("endDate:", endDate);
   // Update state once data is available
   useEffect(() => {
     if (data?.length > 0) {
@@ -91,7 +88,12 @@ const App = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <Table data={data} loading={loading} />
+      <Table
+        data={data}
+        loading={loading}
+        startDate={startDate}
+        endDate={endDate}
+      />
     </div>
   );
 };

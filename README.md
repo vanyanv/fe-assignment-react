@@ -76,22 +76,22 @@ Here are the tasks you should complete:
 
 ### Table
 
-- [ ] Make the header row text bold
-- [ ] Fix the calculation for the total downloads cells
-- [ ] The download cells should be formatted with thousands commas
+- [x] Make the header row text bold
+- [x] Fix the calculation for the total downloads cells
+- [x] The download cells should be formatted with thousands commas
   - E.G. 80000 downloads should be "80,000"
-- [ ] Add a column for Revenue
-  - [ ] The table header should say "Revenue"
-  - [ ] The revenue cells should have the revenue, formatted with a dollar sign and commas. EG: "$140,043.51"
-- [ ] Add a column for "Revenue per Download"
-  - [ ] The table header should say "RPD"
-  - [ ] The RPD cells should have the revenue divided by downloads. If the value is invalid, the cell should say "-".
-  - [ ] The RPD cells should be formatted like the Revenue column
-- [ ] The table should only use data within (and including) the start and end date inputs to calculate the total downloads/revenue/RPD.
+- [x] Add a column for Revenue
+  - [x] The table header should say "Revenue"
+  - [x] The revenue cells should have the revenue, formatted with a dollar sign and commas. EG: "$140,043.51"
+- [x] Add a column for "Revenue per Download"
+  - [x] The table header should say "RPD"
+  - [x] The RPD cells should have the revenue divided by downloads. If the value is invalid, the cell should say "-".
+  - [x] The RPD cells should be formatted like the Revenue column
+- [x] The table should only use data within (and including) the start and end date inputs to calculate the total downloads/revenue/RPD.
 
 ### Bonus
 
-- [ ] Add a loading state for the chart and table
+- [x] Add a loading state for the chart and table
 - [ ] In the table, add each app's icon next to app name in the `App Name` column
 - [ ] Address any inefficiencies in the code
 
