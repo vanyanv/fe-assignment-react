@@ -26,11 +26,19 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
   const formattedEndDate = dayjsUtc(endDate).format("MMM DD, YYYY");
 
   useEffect(() => {
+    const startMs = dayjsUtc(startDate).startOf("day").valueOf();
+    const endMs = dayjsUtc(endDate).endOf("day").valueOf();
+
     const newSeriesData: Highcharts.SeriesLineOptions[] = data.map((series) => {
+      const filteredData = series.data.filter(([date]) => {
+        const dateMs = dayjsUtc(date).valueOf();
+        return dateMs >= startMs && dateMs <= endMs; // Filter points within date range
+      });
+
       return {
         name: series.name,
         type: "line",
-        data: series.data.map(([date, downloads, revenue]) => {
+        data: filteredData.map(([date, downloads, revenue]) => {
           //variable that selects between downloads or revenue data points based on selection
           const value = selected === "downloads" ? downloads : revenue;
           const dateMs = dayjsUtc(date).valueOf(); // convert date string to unix milliseconds
@@ -43,7 +51,7 @@ const Chart = ({ data, loading, selected, startDate, endDate }: ChartProps) => {
       } as Highcharts.SeriesLineOptions;
     });
     setSeriesData(newSeriesData);
-  }, [data, selected]);
+  }, [data, selected, startDate, endDate]);
 
   if (!seriesData.length) {
     return null;
