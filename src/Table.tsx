@@ -1,12 +1,16 @@
 import { DataGrid, GridColDef, GridColumnHeaderParams } from "@mui/x-data-grid";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 import type { Response } from "./types";
+import SkeletonLoader from "./SkeletonLoader";
 import { formatRevenue } from "./utility";
 import "./App.css";
+import { useEffect, useState } from "react";
 
 type TableProps = {
   data: Response;
   loading: boolean;
+  startDate: string;
+  endDate: string;
 };
 
 type RowProps = {
@@ -14,12 +18,34 @@ type RowProps = {
   appName: string;
   downloads: number;
   revenue: number;
-  rpd: number;
+  rpd: number | string;
 };
 
-const Table = ({ data, loading }: TableProps) => {
+const Table = ({ data, loading, startDate, endDate }: TableProps) => {
+  const [filteredData, setFilteredData] = useState<Response>([]);
+
+  useEffect(() => {
+    if (!data.length) {
+      setFilteredData([]);
+      return;
+    }
+
+    // Filter data within the specified date range
+    const filteredData = data.filter((appData) => {
+      // Assuming appData.data is an array of arrays where the first element is a date
+      return appData.data.some((entry) => {
+        const entryDate = new Date(entry[0]); // Assuming the date is the first element in the entry
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        return entryDate >= start && entryDate <= end;
+      });
+    });
+
+    setFilteredData(filteredData);
+  }, [data, startDate, endDate]);
+
   if (loading) {
-    return <div>Loading...</div>; // Add a loading indicator
+    return <SkeletonLoader />; // Add a loading indicator
   }
 
   if (!data.length) {
@@ -63,19 +89,23 @@ const Table = ({ data, loading }: TableProps) => {
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{`${params.colDef.headerName}`}</strong>
       ),
+      valueFormatter: (params) => {
+        return formatRevenue(params);
+      },
       width: 150,
     },
   ];
 
-  const rows = data.map((appData) => {
+  const rows = filteredData.map((appData) => {
     const totalDownloads = appData.data.reduce((a, b) => a + b[1], 0);
     const totalRevenue = appData.data.reduce((a, b) => a + b[2], 0);
+    const rpd = totalRevenue / totalDownloads;
     const row: RowProps = {
       id: appData.id,
       appName: appData.name,
       downloads: totalDownloads,
       revenue: totalRevenue,
-      rpd: appData.data[0][1],
+      rpd: rpd,
     };
     return row;
   });

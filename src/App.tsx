@@ -88,7 +88,12 @@ const App = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <Table data={data} loading={loading} />
+      <Table
+        data={data}
+        loading={loading}
+        startDate={startDate}
+        endDate={endDate}
+      />
     </div>
   );
 };
