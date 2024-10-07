@@ -29,8 +29,6 @@ const App = () => {
   const [startDate, setStartDate] = useState(startingDate);
   const [endDate, setEndDate] = useState(endingDate);
 
-  console.log("startDate:", startDate);
-  console.log("endDate:", endDate);
   // Update state once data is available
   useEffect(() => {
     if (data?.length > 0) {

@@ -12,7 +12,7 @@ type TableProps = {
 type RowProps = {
   id: number;
   appName: string;
-  downloads: number;
+  downloads: string | number;
   revenue: number;
   rpd: number;
 };
@@ -28,6 +28,10 @@ const theme = createTheme({
     },
   },
 });
+
+const formatNumberWithCommas = (num: number) => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const Table = ({ data, loading }: TableProps) => {
   if (loading) {
@@ -74,12 +78,14 @@ const Table = ({ data, loading }: TableProps) => {
   ];
 
   const rows = data.map((appData) => {
-    const totalDownloads = 42;
+    const totalDownloads = appData.data.reduce((a, b) => a + b[1], 0);
+    const totalRevenue = appData.data.reduce((a, b) => a + b[2], 0);
+    console.log(totalDownloads);
     const row: RowProps = {
       id: appData.id,
       appName: appData.name,
-      downloads: appData.data[0][2],
-      revenue: appData.data[0][1],
+      downloads: formatNumberWithCommas(totalDownloads),
+      revenue: totalRevenue,
       rpd: appData.data[0][1],
     };
     return row;
