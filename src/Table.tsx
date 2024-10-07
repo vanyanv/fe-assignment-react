@@ -19,6 +19,7 @@ type RowProps = {
   downloads: number;
   revenue: number;
   rpd: number | string;
+  avatar: string; // Add the image property
 };
 
 const Table = ({ data, loading, startDate, endDate }: TableProps) => {
@@ -60,7 +61,26 @@ const Table = ({ data, loading, startDate, endDate }: TableProps) => {
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{`${params.colDef.headerName}`}</strong>
       ),
+      //renders the image of Application in Cell
+      renderCell: (params) => {
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={params.row.avatar}
+              alt={params.row.appName}
+              style={{
+                width: 30,
+                height: 30,
+                marginRight: 10,
+                borderRadius: "50%",
+              }}
+            />
+            <span>{params.row.appName}</span>
+          </div>
+        );
+      },
     },
+
     {
       field: "downloads",
       headerName: "Downloads",
@@ -102,6 +122,7 @@ const Table = ({ data, loading, startDate, endDate }: TableProps) => {
     const rpd = totalRevenue / totalDownloads;
     const row: RowProps = {
       id: appData.id,
+      avatar: appData.icon,
       appName: appData.name,
       downloads: totalDownloads,
       revenue: totalRevenue,

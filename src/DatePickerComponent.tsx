@@ -14,7 +14,6 @@ export default function DatePickerComponent({
 }: DatePickerComponentProps) {
   const dateValue = dayjs(givenDate); // Convert the givenDate to a dayjs object
 
-  console.log(dateValue);
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

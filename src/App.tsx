@@ -19,15 +19,10 @@ const buttonStyle = {
 
 const App = () => {
   const { data, loading } = useData();
-  //starting date from our data
-  const startingDate = "";
-  //ending date from our data
-  const endingDate = "";
 
-  console.log(endingDate);
   const [selected, setSelected] = useState("downloads");
-  const [startDate, setStartDate] = useState(startingDate);
-  const [endDate, setEndDate] = useState(endingDate);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // Update state once data is available
   useEffect(() => {
