@@ -93,7 +93,7 @@ Here are the tasks you should complete:
 
 - [x] Add a loading state for the chart and table
 - [x] In the table, add each app's icon next to app name in the `App Name` column
-- [x] Address any inefficiencies in the code
+- [x] Address any inefficiencies in the code (adressed issues)
 
 ## Tips:
 
